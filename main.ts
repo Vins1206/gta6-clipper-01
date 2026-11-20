@@ -29,12 +29,20 @@ const BOT_DIR = process.env.MAKEFUN_BOT_DIR ?? '/bot';
 const OUTPUT_DIR = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 
 // --- The cut: one moment, chosen in the build session. ---------------------
-// Source: Rockstar's Grand Theft Auto VI Trailer 2 (2:47), downloaded in the
-// build session. Timestamps are seconds into that trailer. PLACEHOLDER until
-// the moment is picked from the footage; the build session revises them.
+// Source: Rockstar's Grand Theft Auto VI Trailer 2 (2:47, 1280x720 with
+// audio), downloaded in the build session and verified frame by frame.
+// Why this moment: the trailer's climax run, 116s-161s. It opens on the
+// "we're really doing this" beat — Jason walks in and Lucia turns to him
+// (116s-117s) — then cuts straight to the trailer's single biggest image,
+// Lucia at the wheel as a police car explodes in the middle of the road
+// (118s). From there it is one continuous action montage: golden-hour
+// street, red-lit truck heist, night getaway, club, bike and plane, boat
+// chase, sunset cityscape, and the "VI" title card. That is the hook a
+// launch-week viewer stays for, and it ends on black where the pitch reads.
+// Timestamps are seconds into Trailer 2.
 const SOURCE_FILE = 'source.mp4';
-const CLIP_START = 52; // moment in-point (seconds into Trailer 2)
-const CLIP_END = 97; // moment out-point (seconds into Trailer 2)
+const CLIP_START = 116; // Jason walks in; Lucia turns to him
+const CLIP_END = 161; // end of the "VI" logo, before the title card
 const PITCH_SECONDS = 13; // pitch text on screen for the last 13 s
 const CLIP_FILE = 'gta6-clip-final.mp4';
 const FONT_FILE =
@@ -54,19 +62,20 @@ function renderClip(): void {
     throw new Error(`clip must be 1-60 s, got ${duration} s`);
   }
   const pitchFrom = duration - PITCH_SECONDS;
-  // Landscape 1920x1080 -> vertical 9:16: centre-crop the middle 607 px
-  // wide, then scale up to 1080x1920. drawtext escapes: single quotes inside
-  // the filter string are doubled by ffmpeg's filter parser, so the pitch
-  // lines use plain text with no quotes.
+  // Landscape 1280x720 -> vertical 9:16: centre-crop the middle 405 px
+  // wide (720 * 9/16), then scale up to 1080x1920. The money shots are all
+  // centre-frame (the explosion, the truck heist, the boat chase), so the
+  // centre crop keeps them. Pitch lines are fontsize 60 so the longest
+  // line fits the 1080 px width; drawtext text uses plain words, no quotes.
   const vf = [
-    'crop=607:1080:(in_w-607)/2:0',
+    'crop=405:720:(in_w-405)/2:0',
     'scale=1080:1920',
     'fps=30',
     // Hook caption, first 4 s: the game is out now.
     `drawtext=fontfile=${FONT_FILE}:text='GTA 6 IS HERE':fontsize=58:fontcolor=white:borderw=3:bordercolor=black:x=(w-text_w)/2:y=120:enable='between(t,0,4)'`,
     // make.fun pitch, last PITCH_SECONDS seconds, lower-middle safe area.
-    `drawtext=fontfile=${FONT_FILE}:text='Make clips like this with AI':fontsize=72:fontcolor=white:borderw=3:bordercolor=black:box=1:boxcolor=black@0.55:boxborderw=28:x=(w-text_w)/2:y=h*0.60:enable='between(t,${pitchFrom},${duration})'`,
-    `drawtext=fontfile=${FONT_FILE}:text='and earn money on make.fun':fontsize=72:fontcolor=white:borderw=3:bordercolor=black:box=1:boxcolor=black@0.55:boxborderw=28:x=(w-text_w)/2:y=h*0.67:enable='between(t,${pitchFrom},${duration})'`,
+    `drawtext=fontfile=${FONT_FILE}:text='Make clips like this with AI':fontsize=60:fontcolor=white:borderw=3:bordercolor=black:box=1:boxcolor=black@0.55:boxborderw=28:x=(w-text_w)/2:y=h*0.60:enable='between(t,${pitchFrom},${duration})'`,
+    `drawtext=fontfile=${FONT_FILE}:text='and earn money on make.fun':fontsize=60:fontcolor=white:borderw=3:bordercolor=black:box=1:boxcolor=black@0.55:boxborderw=28:x=(w-text_w)/2:y=h*0.67:enable='between(t,${pitchFrom},${duration})'`,
     `drawtext=fontfile=${FONT_FILE}:text='make.fun/bounty/gta6-clipper-01':fontsize=44:fontcolor=white:borderw=2:bordercolor=black:box=1:boxcolor=black@0.55:boxborderw=20:x=(w-text_w)/2:y=h*0.74:enable='between(t,${pitchFrom},${duration})'`,
   ].join(',');
   const out = join(BOT_DIR, CLIP_FILE);
