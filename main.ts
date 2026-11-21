@@ -31,20 +31,18 @@ const OUTPUT_DIR = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 // --- The cut: one moment, chosen in the build session. ---------------------
 // Source: Rockstar's Grand Theft Auto VI Trailer 2 (2:47, 1280x720 with
 // audio), downloaded in the build session and verified frame by frame.
-// Why this moment: the trailer's most explosive core, 117s-146s (29 s).
-// It opens on Lucia turning to Jason (117s), then cuts straight to the
-// trailer's single biggest image — Lucia at the wheel as a police car
-// explodes in the middle of the road (118s). From there it is one
-// continuous action run: golden-hour street, red-lit truck heist, night
-// getaway, club, bike and plane, boat chase. The first cut of this entry
-// ran 116s-161s (45 s) and YouTube blocked the upload over a duration
-// limit on the uploader's side, so this re-cut tightens the same moment
-// to its core and ships SILENT — no trailer audio at all — so the
-// uploader can add a track from YouTube's own Shorts library instead.
+// Why this moment: the trailer's climax run, 116s-161s. It opens on the
+// "we're really doing this" beat — Jason walks in and Lucia turns to him
+// (116s-117s) — then cuts straight to the trailer's single biggest image,
+// Lucia at the wheel as a police car explodes in the middle of the road
+// (118s). From there it is one continuous action montage: golden-hour
+// street, red-lit truck heist, night getaway, club, bike and plane, boat
+// chase, sunset cityscape, and the "VI" title card. That is the hook a
+// launch-week viewer stays for, and it ends on black where the pitch reads.
 // Timestamps are seconds into Trailer 2.
 const SOURCE_FILE = 'source.mp4';
-const CLIP_START = 117; // Lucia turns to Jason; explosion lands at +1 s
-const CLIP_END = 146; // boat chase; 29 s total, safely under the limit
+const CLIP_START = 116; // Jason walks in; Lucia turns to him
+const CLIP_END = 161; // end of the "VI" logo, before the title card
 const PITCH_SECONDS = 13; // pitch text on screen for the last 13 s
 const CLIP_FILE = 'gta6-clip-final.mp4';
 const FONT_FILE =
@@ -87,10 +85,7 @@ function renderClip(): void {
     '-i', source,
     '-vf', vf,
     '-c:v', 'libx264', '-crf', '20', '-preset', 'veryfast',
-    // Silent on purpose: -an drops the trailer's audio track entirely, so
-    // the file carries no copyrighted audio; the uploader adds a track
-    // from YouTube's own Shorts library in the app.
-    '-an',
+    '-c:a', 'aac', '-b:a', '128k',
     '-movflags', '+faststart',
     out,
   ];

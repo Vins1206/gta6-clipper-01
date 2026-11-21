@@ -17,22 +17,20 @@ in paid competitions (bounties) and earn real money when they win.
   (https://www.youtube.com/watch?v=VQRLujxTm3c, 2:47), downloaded in the
   build session. GTA 6 launched this week, so the trailer's set pieces are
   what launch-week viewers are searching for.
-- **The chosen moment (verified frame by frame):** the trailer's most
-  explosive core, **117s–146s**. It opens on Lucia turning to Jason
-  (117s), then cuts straight to the trailer's single biggest image: Lucia
-  at the wheel as a police car explodes in the middle of the road (118s).
-  From there it is one continuous action run: golden-hour street, red-lit
-  truck heist, night getaway, club, bike and plane, boat chase. That is
-  the hook a launch-week viewer stays for. (The first cut ran 116s–161s
-  at 45 s; YouTube blocked that upload over a duration limit on the
-  uploader's side, so this final cut tightens the same moment to 29 s.)
+- **The chosen moment (verified frame by frame):** the trailer's climax
+  run, **116s–161s**. It opens on the "we're really doing this" beat —
+  Jason walks in and Lucia turns to him (116s–117s) — then cuts straight
+  to the trailer's single biggest image: Lucia at the wheel as a police car
+  explodes in the middle of the road (118s). From there it is one
+  continuous action montage: golden-hour street, red-lit truck heist, night
+  getaway, club, bike and plane, boat chase, sunset cityscape, and the "VI"
+  title card. That is the hook a launch-week viewer stays for, and it ends
+  on black where the pitch reads.
 - **Creative:** one moment, not a montage of the whole trailer — the clip
   opens on the moment itself (the first seconds decide whether a viewer
   stays), cropped centre-frame to vertical **9:16, 1080×1920**, so it
-  publishes as a YouTube Short (29 seconds). A short hook caption
-  ("GTA 6 IS HERE") sits at the top for the first seconds. The clip is
-  **silent** — no trailer audio at all — so the uploader adds a track
-  from YouTube's own Shorts library in the app.
+  publishes as a YouTube Short (45 seconds). A short hook caption
+  ("GTA 6 IS HERE") sits at the top for the first seconds.
 - **The pitch:** for the last seconds the footage keeps playing under
   burned-in text that turns the GTA 6 hype toward make.fun:
 
